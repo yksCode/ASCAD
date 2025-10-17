@@ -20,20 +20,12 @@ pipeline {
         stage('Build') {
             steps {
                 echo "==== 构建项目 ===="
-                sh 'chmod +x ./gradlew'
-                sh './gradlew clean build -x test'
+                sh 'gradle clean build -x test'
             }
         }
-
         stage('Test') {
             steps {
-                echo "==== 运行测试 ===="
-                sh './gradlew test'
-            }
-            post {
-                always {
-                    junit 'build/test-results/test/*.xml'
-                }
+                sh 'gradle test'
             }
         }
 
